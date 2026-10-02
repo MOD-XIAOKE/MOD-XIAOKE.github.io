@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="WOT辅助中心">
+<title>WOT辅助中心</title>
+<link rel="icon" type="image/png" href="assets/header-logo.png">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff;
+    --line:#e7eaef; --line2:#d8dde4;
+    --txt:#20242a; --muted:#6b7280; --dim:#9aa1ab;
+    --serif:'Noto Serif SC','Songti SC','SimSun',serif;
+    --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:var(--sans); font-size:14.5px; line-height:1.7;
+    color:var(--txt); margin:0;
+    background:linear-gradient(180deg, #f8f9fb 0%, #e9edf3 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:rgba(232,89,12,.16)}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
+  a{color:inherit; text-decoration:none}
+
+  /* ===== 顶栏 ===== */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{height:58px; display:flex; align-items:center}
+  .brand{display:flex; align-items:center; gap:10px}
+  .brand-name{
+    font-family:var(--serif); font-weight:900;
+    font-size:18px; letter-spacing:.03em; color:var(--txt);
+    white-space:nowrap;
+  }
+  .brand-logo{
+    width:34px; height:34px; border-radius:9px; object-fit:cover;
+    box-shadow:0 2px 6px rgba(22,26,32,.18); display:block;
+  }
+  .tb-btn{
+    margin-left:auto; display:inline-flex; align-items:center;
+    background:linear-gradient(135deg,#f06514,#e8590c);
+    color:#fff; font-size:13px; font-weight:700;
+    min-height:34px; padding:4px 14px; border-radius:999px;
+    box-shadow:0 2px 8px rgba(232,89,12,.26);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .tb-btn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(232,89,12,.34)}
+  .tb-btn:active{transform:translateY(0)}
+  .tb-btn:focus-visible{outline:2px solid #e8590c; outline-offset:2px}
+
+  /* ===== Hero ===== */
+  .hero{padding:46px 0 28px; text-align:center}
+  .hero h1{
+    font-family:var(--serif); font-weight:900;
+    font-size:clamp(2.1rem, 5.8vw, 3.2rem);
+    line-height:1.2; letter-spacing:.04em; color:var(--txt);
+  }
+  .hero .bar{
+    width:54px; height:3px; border-radius:99px;
+    background:linear-gradient(90deg,#e8590c,#f5a623);
+    margin:16px auto 0;
+  }
+  .hero .sub{
+    margin:14px auto 0; max-width:500px;
+    color:var(--muted); font-size:14.5px;
+  }
+
+  /* ===== 可折叠分区 ===== */
+  .mods{padding:8px 0 52px}
+  .mod-card{
+    background:var(--card); border:2px solid var(--sc, var(--line2));
+    border-radius:14px; margin-bottom:20px; overflow:hidden;
+    box-shadow:0 1px 3px rgba(22,26,32,.05);
+    transition:box-shadow .2s ease;
+  }
+  .mod-card[open]{box-shadow:0 10px 26px rgba(22,26,32,.08)}
+  .mod-head{
+    list-style:none; cursor:pointer; user-select:none;
+    display:flex; align-items:center; gap:12px;
+    padding:22px 20px;
+    transition:background .18s ease;
+  }
+  .mod-head::-webkit-details-marker{display:none}
+  .mod-head:hover{background:#fafbfd}
+  .mod-title{
+    font-family:var(--serif); font-weight:700;
+    font-size:17px; letter-spacing:.02em; color:var(--sc, var(--txt));
+  }
+  .chev{
+    margin-left:auto; width:16px; height:16px; color:var(--dim); flex:none;
+    transition:transform .25s ease;
+  }
+  .mod-card[open] .chev{transform:rotate(180deg)}
+  .mod-body{padding:2px 18px 16px}
+  .mod-card[open] .mod-body{border-top:1px dashed var(--line2); padding-top:12px; margin-top:2px}
+
+  .mod-desc{font-size:14px; color:var(--muted)}
+
+  /* ===== 文件列表 ===== */
+  .files{margin-top:12px}
+  .file-row{
+    display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;
+    padding:11px 2px;
+  }
+  .file-row + .file-row{border-top:1px solid var(--line)}
+  .f-name{font-size:14.5px; font-weight:600; color:var(--txt); word-break:break-all}
+  .f-desc{font-size:12.5px; color:var(--muted); margin-top:2px; word-break:break-all}
+  .f-meta{display:flex; align-items:center; gap:14px}
+  .f-time{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:12.5px; color:var(--dim); white-space:nowrap;
+  }
+  .f-time svg{width:13px; height:13px; flex:none}
+  .btn-dl{
+    display:inline-flex; align-items:center; gap:4px;
+    min-height:28px; padding:4px 10px; border-radius:999px;
+    background:#6b46e5; color:#fff;
+    font-weight:700; font-size:12px; user-select:none;
+    box-shadow:0 1px 4px rgba(107,70,229,.28);
+    transition:transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  }
+  .btn-dl svg{width:11px; height:11px}
+  .btn-dl:hover{filter:brightness(1.08); transform:translateY(-1px); box-shadow:0 4px 12px rgba(107,70,229,.34)}
+  .btn-dl:active{transform:translateY(0)}
+  .btn-dl:focus-visible, .lock-btn:focus-visible, .lock-input:focus-visible{outline:2px solid #6b46e5; outline-offset:2px}
+
+  /* ===== 密码锁定面板 ===== */
+  .lock-box{padding:12px 4px 6px; text-align:center}
+  .lock-form{display:flex; gap:8px; justify-content:center}
+  .lock-input{
+    width:200px; height:40px; padding:0 14px;
+    border:1px solid var(--line2); border-radius:999px;
+    font-size:16px; font-family:var(--sans); color:var(--txt); background:#fff; outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .lock-input:focus{border-color:var(--sc, #e8590c); box-shadow:0 0 0 3px rgba(232,89,12,.1)}
+  .lock-input.err{border-color:#d83a3a}
+  .lock-btn{
+    height:36px; padding:0 16px; border:none; border-radius:999px;
+    background:#e8590c; color:#fff;
+    font-family:var(--sans); font-weight:700; font-size:13px; cursor:pointer;
+    box-shadow:0 2px 6px rgba(232,89,12,.22);
+    transition:filter .14s ease, transform .14s ease;
+  }
+  .lock-btn:hover{filter:brightness(1.08); transform:translateY(-1px)}
+
+  /* ===== 客服悬浮按钮 ===== */
+  .kefu{
+    position:fixed; right:22px; bottom:22px; z-index:40;
+    width:50px; height:50px; border-radius:50%; overflow:hidden;
+    border:2px solid #fff; box-shadow:0 6px 18px rgba(0,0,0,.16);
+    transition:transform .15s ease;
+  }
+  .kefu:hover{transform:scale(1.07)}
+  .kefu img{width:100%; height:100%; object-fit:cover; display:block}
+
+  /* ===== 页脚（标准网页格式） ===== */
+  footer{padding:26px 0 40px; text-align:center}
+  footer p{font-size:13px; color:var(--muted); font-weight:400}
+  footer .dot{margin:0 8px; color:var(--dim)}
+
+  /* ===== Toast ===== */
+  .toast{
+    position:fixed; left:50%; bottom:34px; z-index:60;
+    transform:translate(-50%, 12px);
+    background:#242a33; color:#fff; font-size:13px;
+    padding:10px 18px; border-radius:10px;
+    box-shadow:0 10px 26px rgba(0,0,0,.22);
+    opacity:0; pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;
+    max-width:80vw;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0)}
+
+  /* ===== 入场动效 ===== */
+  @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  .hero h1{animation:rise .5s ease both}
+  .hero .bar{animation:rise .5s ease .06s both}
+  .hero .sub{animation:rise .5s ease .12s both}
+  .mod-card{animation:rise .4s ease both}
+  .mod-card:nth-child(1){animation-delay:.04s}
+  .mod-card:nth-child(2){animation-delay:.08s}
+  .mod-card:nth-child(3){animation-delay:.12s}
+  .mod-card:nth-child(4){animation-delay:.16s}
+
+  /* ===== 响应式 ===== */
+  @media (max-width:680px){
+    .topbar .wrap{height:52px}
+    .brand-logo{width:30px; height:30px; border-radius:8px}
+    .hero{padding:34px 0 22px}
+    .mod-head{padding:18px 15px}
+    .mod-body{padding:2px 15px 14px}
+    .mod-title{font-size:16px}
+    .file-row{gap:10px}
+    .f-time{font-size:12px}
+    .btn-dl{padding:4px 10px}
+    .lock-input{width:150px}
+    .kefu{width:46px; height:46px; right:16px; bottom:16px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 顶栏：左侧标题 + 右上角淘宝店铺按钮 ===== -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <img class="brand-logo" src="assets/header-logo.png" alt="WOT辅助中心" width="34" height="34">
+      <span class="brand-name">WOT辅助中心</span>
+    </div>
+    <a class="tb-btn" id="tb-btn" href="#" target="_blank" rel="noopener noreferrer">
+      <span id="tb-text">小可的淘宝店铺</span>
+    </a>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  <!-- ===== 页面标题 ===== -->
+  <section class="hero">
+    <h1>文件下载站</h1>
+  </section>
+
+  <!-- ===== 分区列表（由下方脚本按“配置区”数据自动生成，默认全部收起） ===== -->
+  <section class="mods" id="mods" aria-label="工具分区"></section>
+
+</main>
+
+<!-- ===== 页脚：作者信息 ===== -->
+<footer class="wrap">
+  <p class="author"><span>© 2026 WOT辅助中心</span><span class="dot">·</span><span id="footer-author"></span><span class="dot">·</span><span id="footer-qq"></span></p>
+</footer>
+
+<!-- ===== 右下角客服图标 ===== -->
+<a class="kefu" id="kefu" href="#" target="_blank" rel="noopener noreferrer" aria-label="在线客服">
+  <img src="assets/kefu-icon.png" alt="在线客服" width="50" height="50">
+</a>
+
+<!-- ===== Toast 提示 ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script>
+/* ================================================================
+ *  页面配置已分离到同目录 config.js（下载链接 / 名称 / 说明 / 更新时间 / 分区）
+ *  日常维护只改 config.js，本页面无需再修改。
+ * ================================================================ */
+
+/* ================================================================
+ *  以下为页面渲染与交互代码（一般无需修改）
+ * ================================================================ */
+(function(){
+  if(!window.SECTIONS) window.SECTIONS = [];
+  window.TAOBAO_TEXT = window.TAOBAO_TEXT || '小可的淘宝店铺';
+  window.TAOBAO_URL  = window.TAOBAO_URL  || '#';
+  window.KEFU_URL    = window.KEFU_URL    || '#';
+  window.AUTHOR_TEXT = window.AUTHOR_TEXT || '作者：SIMP 中国区经销商（小可）';
+  window.AUTHOR_QQ   = window.AUTHOR_QQ   || 'QQ：3637487607';
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2400);
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+  function findSection(id){
+    for(var i=0; i<SECTIONS.length; i++){ if(SECTIONS[i].id === id) return SECTIONS[i]; }
+    return null;
+  }
+
+  /* 生成单个文件行（文件名 + 说明 + 更新时间 + 下载按钮） */
+  function fileRowHTML(f){
+    var desc = f.desc ? '<div class="f-desc">' + esc(f.desc) + '</div>' : '';
+    var time = f.time
+      ? '<span class="f-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新时间 ' + esc(f.time) + '</span>'
+      : '';
+    return '<div class="file-row">'
+      + '<div class="f-info"><div class="f-name">' + esc(f.name) + '</div>' + desc + '</div>'
+      + '<div class="f-meta">' + time
+      + '<a class="btn-dl" href="' + esc(f.url) + '" download="' + esc(f.name) + '" aria-label="下载 ' + esc(f.name) + '">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>'
+      + '<span>下载</span></a></div></div>';
+  }
+
+  /* 生成分区展开后的内容（说明 + 文件列表） */
+  function modBodyHTML(s){
+    var files = s.files.map(fileRowHTML).join('');
+    return '<p class="mod-desc">' + esc(s.desc) + '</p>'
+      + '<div class="files">' + files + '</div>';
+  }
+
+  /* 生成密码锁定面板（仅密码输入 + 解锁按钮） */
+  function lockPanelHTML(s){
+    return '<div class="lock-box">'
+      + '<div class="lock-form">'
+      + '<input class="lock-input" type="password" placeholder="请输入密码" aria-label="解锁密码" autocomplete="off">'
+      + '<button class="lock-btn" type="button">解锁</button>'
+      + '</div></div>';
+  }
+
+  /* 生成可折叠分区外壳（标题行 + 内容区，默认收起） */
+  function modCardHTML(s){
+    return '<summary class="mod-head">'
+      + '<span class="mod-title">' + esc(s.title) + '</span>'
+      + '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'
+      + '</summary>'
+      + '<div class="mod-body"></div>';
+  }
+
+  /* 尝试解锁 */
+  function tryUnlock(card){
+    var input = card.querySelector('.lock-input');
+    var s = findSection(card.dataset.id);
+    if(!s || !input) return;
+    if(input.value === PASSWORD){
+      sessionStorage.setItem('unlocked_' + s.id, '1');
+      card.querySelector('.mod-body').innerHTML = modBodyHTML(s);
+      showToast('已解锁');
+    } else {
+      input.classList.add('err');
+      showToast('密码错误，请重试');
+      setTimeout(function(){ input.classList.remove('err'); }, 650);
+      input.select();
+    }
+  }
+
+  /* 渲染整页 */
+  function render(){
+    var tb = document.getElementById('tb-btn');
+    tb.href = TAOBAO_URL;
+    document.getElementById('tb-text').textContent = TAOBAO_TEXT;
+    document.getElementById('kefu').href = KEFU_URL;
+    document.getElementById('footer-author').textContent = AUTHOR_TEXT;
+    document.getElementById('footer-qq').textContent = AUTHOR_QQ;
+
+    var box = document.getElementById('mods');
+    box.innerHTML = '';
+    SECTIONS.forEach(function(s){
+      var card = document.createElement('details');
+      card.className = 'mod-card';
+      card.dataset.id = s.id;
+      card.style.setProperty('--sc', s.color);
+      card.innerHTML = modCardHTML(s);
+      var unlocked = !s.locked || sessionStorage.getItem('unlocked_' + s.id) === '1';
+      card.querySelector('.mod-body').innerHTML = unlocked ? modBodyHTML(s) : lockPanelHTML(s);
+      box.appendChild(card);
+    });
+  }
+
+  /* 事件：解锁 + 下载预检（事件委托，动态生成的内容同样生效） */
+  document.getElementById('mods').addEventListener('click', function(e){
+    var lockBtn = e.target.closest('.lock-btn');
+    if(lockBtn){ tryUnlock(lockBtn.closest('.mod-card')); return; }
+    var dl = e.target.closest('.btn-dl');
+    if(dl){
+      var href = dl.getAttribute('href');
+      fetch(href, { method:'HEAD', cache:'no-store' }).then(function(res){
+        if(!res.ok){ e.preventDefault(); showToast('文件尚未上传，请稍后重试'); }
+      }).catch(function(){
+        /* file:// 等无法预检的场景：交给浏览器自行处理 */
+      });
+    }
+  });
+  document.getElementById('mods').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && e.target.classList && e.target.classList.contains('lock-input')){
+      tryUnlock(e.target.closest('.mod-card'));
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
