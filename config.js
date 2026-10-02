@@ -54,7 +54,7 @@ var SECTIONS = [
     desc: 'B4IT插件支持360国服  亚服  欧服  美服 插件QQ群：823294873',
     files: [
       { name: 'B4IT免安装版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/%E5%88%86%E4%BA%AB%E7%AB%99/B4IT/B4IT%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88.zip', desc: '主程序 因官方原版安装器为纯英文界面没有中文，新手容易看不懂，所以[小可]特别制作中文免安版本。', time: '2026-10-02' },
-      { name: 'B4IT安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/%E5%88%86%E4%BA%AB%E7%AB%99/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8V8.zip', desc: '主程序', time: '2026-10-02' },
+      { name: 'B4IT安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/%E5%88%86%E4%BA%AB%E7%AB%99/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: '主程序', time: '2026-10-02' },
       { name: 'B4IT功能说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/%E5%88%86%E4%BA%AB%E7%AB%99/B4IT/B4IT%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.png', desc: '插件页面及快捷键说明', time: '2026-10-02' },
     ]
   },
