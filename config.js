@@ -43,7 +43,7 @@ var SECTIONS = [
     files: [
       { name: 'SIMP启动器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E5%90%AF%E5%8A%A8%E5%99%A8.zip#', desc: '主程序', time: '2026-10-02' },
       { name: '挂机环境设置', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/%E8%AE%BE%E7%BD%AE%E6%8C%82%E6%9C%BA%E7%8E%AF%E5%A2%83.zip#', desc: '第一次使用艺术机器人与游戏客户端更新后必须运行此程序', time: '2026-10-02' },
-      { name: 'SIMP辅助工具', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7#.zip', desc: '自动上号软件', time: '2026-10-02' },
+      { name: 'SIMP辅助工具', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7.zip#', desc: '自动上号软件', time: '2026-10-02' },
       { name: '艺术机器人使用说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/%E8%89%BA%E6%9C%AF%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.jpg#', desc: '需要更多教程资料请添加客服QQ: 3637487607', time: '2026-10-02' },
     ]
   },
