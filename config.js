@@ -75,7 +75,7 @@ var SECTIONS = [
     color: '#8a94a3',          // 灰色
     desc: '更多插件与辅助工具文件',
     files: [
-      { name: '去草', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E5%8E%BB%E8%8D%89.zip#', desc: '已更新至2.4.0.2版本', time: '2026-10-02' },
+      { name: '去草', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E5%8E%BB%E8%8D%89.zip#', desc: '已更新至2.4.0.2版本', time: '2026-10-10' },
       { name: '界面&科技树&坦克名称汉化', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E7%95%8C%E9%9D%A2&%E7%A7%91%E6%8A%80%E6%A0%91&%E5%9D%A6%E5%85%8B%E5%90%8D%E7%A7%B0%E6%B1%89%E5%8C%96.zip#', desc: '已更新至2.4.0.2版本', time: '2026-10-02' },
     ]
   }
