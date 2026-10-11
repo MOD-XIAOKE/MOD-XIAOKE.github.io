@@ -65,7 +65,7 @@ var SECTIONS = [
     color: '#2f6fed',          // 蓝色
     desc: 'PFMods北极狐  特别注意:它们激活码不通用 插件QQ群：823294873',
     files: [
-      { name: 'PFMods_WG安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8.zip#', desc: 'WG版支持360国服  亚服  欧服  美服', time: '2026-10-02' },
+      { name: 'PFMods_WG安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8.zip#', desc: 'WG版支持360国服  亚服  欧服  美服', time: '2026-10-11' },
       { name: 'PFMods_RU安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-RU%E5%AE%89%E8%A3%85%E5%99%A8.zip#', desc: 'RU版支持俄罗斯服', time: '2026-10-02' },
     ]
   },
