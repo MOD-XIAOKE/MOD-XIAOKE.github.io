@@ -368,19 +368,31 @@
   }
 
   /* 事件：解锁 + 下载预检（事件委托，动态生成的内容同样生效） */
-  document.getElementById('mods').addEventListener('click', function(e){
+document.getElementById('mods').addEventListener('click', function(e){
     var lockBtn = e.target.closest('.lock-btn');
     if(lockBtn){ tryUnlock(lockBtn.closest('.mod-card')); return; }
     var dl = e.target.closest('.btn-dl');
     if(dl){
-      var href = dl.getAttribute('href');
-      fetch(href, { method:'HEAD', cache:'no-store' }).then(function(res){
-        if(!res.ok){ e.preventDefault(); showToast('文件尚未上传，请稍后重试'); }
+      var baseHref = dl.getAttribute('href');
+      const ts = Date.now();
+      // 拼接时间戳
+      var realHref = `${baseHref}?v=${ts}`;
+      fetch(realHref, { method:'HEAD', cache:'no-store' }).then(function(res){
+        if(!res.ok){ 
+          e.preventDefault(); 
+          showToast('文件尚未上传，请稍后重试'); 
+        }else{
+          // 预检成功，跳转带时间戳的链接
+          window.open(realHref);
+          e.preventDefault();
+        }
       }).catch(function(){
-        /* file:// 等无法预检的场景：交给浏览器自行处理 */
+        // HEAD预检失败，直接打开带时间戳链接
+        window.open(realHref);
+        e.preventDefault();
       });
     }
-  });
+});
   document.getElementById('mods').addEventListener('keydown', function(e){
     if(e.key === 'Enter' && e.target.classList && e.target.classList.contains('lock-input')){
       tryUnlock(e.target.closest('.mod-card'));
