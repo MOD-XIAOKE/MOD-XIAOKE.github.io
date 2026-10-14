@@ -53,8 +53,8 @@ var SECTIONS = [
     color: '#d83a3a',          // 红色
     desc: 'B4IT插件支持360国服  亚服  欧服  美服 插件QQ群：823294873',
     files: [
-      { name: 'B4IT免安装版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88.zip', desc: '主程序 因官方原版安装器为纯英文界面没有中文，新手容易看不懂，所以[小可]特别制作中文免安版本。', time: '2026-10-02' },
-      { name: 'B4IT安装器', url: 'https://b4it-release.oss-cn-beijing.aliyuncs.com/release/download/setup.exe.zip', desc: '主程序 官方原版安装器 英文版', time: '2026-10-02' },
+      { name: 'B4IT免安装版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%85%8D%E5%AE%89%E8%A3%85%E7%89%88.zip', desc: '主程序 因官方原版安装器为纯英文界面没有中文，新手容易看不懂，所以[小可]特别制作中文免安版本。', time: '2026-10-14' },
+      { name: 'B4IT安装器', url: 'https://b4it-release.oss-cn-beijing.aliyuncs.com/release/download/setup.exe.zip', desc: '主程序 官方原版安装器 英文版', time: '2026-10-14' },
       { name: 'B4IT安装器操作说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E.zip', desc: '官方原版安装器 英文版操作说明', time: '2026-10-02' },
       { name: 'B4IT功能说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.jpg', desc: '插件页面及快捷键说明', time: '2026-10-02' },
     ]
@@ -65,7 +65,7 @@ var SECTIONS = [
     color: '#2f6fed',          // 蓝色
     desc: 'PFMods北极狐  特别注意:它们激活码不通用 插件QQ群：823294873',
     files: [
-      { name: 'PFMods_WG安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: 'WG版支持360国服  亚服  欧服  美服', time: '2026-10-11' },
+      { name: 'PFMods_WG安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: 'WG版支持360国服  亚服  欧服  美服', time: '2026-10-14' },
       { name: 'PFMods_RU安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-RU%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: 'RU版支持俄罗斯服', time: '2026-10-02' },
     ]
   },
@@ -75,8 +75,8 @@ var SECTIONS = [
     color: '#8a94a3',          // 灰色
     desc: '更多插件与辅助工具文件',
     files: [
-      { name: '去草', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E5%8E%BB%E8%8D%89.zip', desc: '已更新至2.4.0.2版本', time: '2026-10-10' },
-      { name: '界面&科技树&坦克名称汉化', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E7%95%8C%E9%9D%A2&%E7%A7%91%E6%8A%80%E6%A0%91&%E5%9D%A6%E5%85%8B%E5%90%8D%E7%A7%B0%E6%B1%89%E5%8C%96.zip', desc: '已更新至2.4.0.2版本', time: '2026-10-02' },
+      { name: '去草', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E5%8E%BB%E8%8D%89.zip', desc: '已更新至2.4.1.0版本', time: '2026-10-14' },
+      { name: '界面&科技树&坦克名称汉化', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/other/%E7%95%8C%E9%9D%A2&%E7%A7%91%E6%8A%80%E6%A0%91&%E5%9D%A6%E5%85%8B%E5%90%8D%E7%A7%B0%E6%B1%89%E5%8C%96.zip', desc: '已更新至2.4.1.0版本', time: '2026-10-14' },
     ]
   }
 ];
