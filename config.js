@@ -14,7 +14,8 @@
  *  ▍修改分区：
  *    - color：分区边框颜色 + 标题颜色（黑=SIMP / 红=B4IT / 蓝=PFmods / 灰=其它）
  *    - title：分区标题
- *    - locked: true 表示该分区需输入密码才能展开（密码在下方 PASSWORD）
+ *    - locked: true 表示该分区需输入密码才能展开
+ *    - password：该分区自己的解锁密码（每个分区可单独设置，互不影响）
  *    - desc：分区展开后的一句话说明
  * ============================================================================ */
 
@@ -25,7 +26,9 @@ var TAOBAO_URL  = 'https://simp-xiaoke.taobao.com/'; // 淘宝店铺地址
 /* ---- 右下角客服按钮链接 ---- */
 var KEFU_URL    = 'https://qm.qq.com/q/OICZmAVnKc'; // 客服跳转地址（QQ 临时会话）
 
-/* ---- 第一分区解锁密码（纯前端演示级保护，页面源码可见） ---- */
+/* ---- 各分区独立解锁密码（纯前端演示级保护，页面源码可见） ----
+ *  每个 locked 分区在 SECTIONS 里用自己的 password 字段单独设密码；
+ *  下方 PASSWORD 仅作为全局兜底值，日常请直接改各分区的 password。 */
 var PASSWORD    = 'xiaoke';
 
 /* ---- 页脚作者信息 ---- */
@@ -40,6 +43,7 @@ var SECTIONS = [
     color: '#16181b',          // 黑色
     desc: 'SIMP系列自行火炮挂机软件  支持360国服  亚服  欧服  美服  俄罗斯莱服',
     locked: true,              // 默认隐藏，需输入密码
+    password: 'EFGHAQ',        // 第一区独立解锁密码
     files: [
       { name: 'SIMP启动器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E5%90%AF%E5%8A%A8%E5%99%A8.zip', desc: '主程序', time: '2026-10-02' },
       { name: '挂机环境设置', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/%E8%AE%BE%E7%BD%AE%E6%8C%82%E6%9C%BA%E7%8E%AF%E5%A2%83.zip', desc: '第一次使用艺术机器人与游戏客户端更新后必须运行此程序', time: '2026-10-02' },
@@ -52,9 +56,11 @@ var SECTIONS = [
     title: 'B4IT 插件',
     color: '#d83a3a',          // 红色
     desc: 'B4IT插件支持360国服  亚服  欧服  美服 插件QQ群：823294873',
+    locked: true,              // 默认隐藏，需输入密码
+    password: 'NYSBYH',          // 第二区独立解锁密码
     files: [
-      { name: 'B4IT安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E4%B8%AD%E6%96%87%E7%89%88.zip', desc: '主程序 因官方原版安装器为纯英文界面没有中文，不会自动更新，这边[小可]特别制作中文版，以解决上述问题。', time: '2026-10-17' },
-      { name: 'B4IT安装器英文版', url: 'https://b4it-release.oss-cn-beijing.aliyuncs.com/release/download/setup.exe.zip', desc: '主程序 官方原版安装器 英文版', time: '2026-10-14' },
+      { name: 'B4IT安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E4%B8%AD%E6%96%87%E7%89%88.zip', desc: '3.0中文版带自动更新、一键安装卸载、界面清晰，[小可]特别制作。', time: '2026-11-02' },
+      { name: 'B4IT安装器英文版', url: 'https://b4it-release.oss-cn-beijing.aliyuncs.com/release/download/setup.exe.zip', desc: '英文版安装器', time: '2026-10-14' },
       { name: 'B4IT安装器操作说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E.zip', desc: '官方原版安装器 英文版操作说明', time: '2026-10-02' },
       { name: 'B4IT功能说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.jpg', desc: '插件页面及快捷键说明', time: '2026-10-02' },
     ]
@@ -64,8 +70,10 @@ var SECTIONS = [
     title: 'PFMods 北极狐插件',
     color: '#2f6fed',          // 蓝色
     desc: '特别注意:WG与RU版激活码不通用 插件QQ群：823294873',
+    locked: true,              // 默认隐藏，需输入密码
+    password: 'RYKJSD',        // 第三区独立解锁密码
     files: [
-      { name: 'PFMods_WG安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods%E5%AE%89%E8%A3%85%E5%99%A8CN%E7%89%88.zip', desc: '因官方原版安装器在部分网吧系统中无法安装，安装会出现卡加载，且部分功能未汉化的情况，这边[小可]特别制作中文版，以解决上述问题。', time: '2026-10-20' },
+      { name: 'PFMods_WG安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods%E5%AE%89%E8%A3%85%E5%99%A8CN%E7%89%88.zip', desc: '1.2中文版带一键安装卸载、一键汉化、适配网吧环境、界面清晰、不卡加载界面，[小可]特别制作。', time: '2026-10-20' },
       { name: 'PFMods_WG安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: 'WG版支持360国服  亚服  欧服  美服', time: '2026-10-14' },
       { name: 'PFMods_RU安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-RU%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: 'RU版支持俄罗斯服', time: '2026-10-02' },
     ]
@@ -75,6 +83,8 @@ var SECTIONS = [
     title: '其它插件',
     color: '#8a94a3',          // 灰色
     desc: '更多插件与辅助工具文件',
+    locked: true,              // 默认隐藏，需输入密码
+    password: 'IAGATG',    // 第四区独立解锁密码
     files: [
       { name: '小可盒子', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/%E5%B0%8F%E5%8F%AF%E7%9B%92%E5%AD%90.zip', desc: '本软件提供插件的一键安装、更新与卸载管理服务、操作简单，完全免费使用，不收取任何费用。', time: '2026-10-21' },
     ]
