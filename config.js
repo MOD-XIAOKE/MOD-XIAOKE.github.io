@@ -45,7 +45,7 @@ var SECTIONS = [
     locked: true,              // 默认隐藏，需输入密码
     password: 'EFGHAQ',        // 第一区独立解锁密码
     files: [
-      { name: 'SIMP启动器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E5%90%AF%E5%8A%A8%E5%99%A8.zip', desc: '主程序', time: '2026-10-02' },
+      { name: 'SIMP启动器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E5%90%AF%E5%8A%A8%E5%99%A8.zip', desc: '先运行挂机环境，在运行此主程序。', time: '2026-10-02' },
       { name: '挂机环境设置', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/%E8%AE%BE%E7%BD%AE%E6%8C%82%E6%9C%BA%E7%8E%AF%E5%A2%83.zip', desc: '第一次使用艺术机器人与游戏客户端更新后必须运行此程序', time: '2026-10-02' },
       { name: 'SIMP辅助工具', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/SIMP%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7.zip', desc: '自动上号软件', time: '2026-10-02' },
       { name: '艺术机器人使用说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/SIMP/%E8%89%BA%E6%9C%AF%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.jpg', desc: '需要更多教程资料请添加客服QQ: 3637487607', time: '2026-10-02' },
@@ -61,7 +61,7 @@ var SECTIONS = [
     files: [
       { name: 'B4IT安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E4%B8%AD%E6%96%87%E7%89%88.zip', desc: '3.0中文版带自动更新、一键安装卸载、界面清晰，[小可]特别制作。', time: '2026-11-02' },
       { name: 'B4IT安装器英文版', url: 'https://b4it-release.oss-cn-beijing.aliyuncs.com/release/download/setup.exe.zip', desc: '英文版安装器', time: '2026-10-14' },
-      { name: 'B4IT安装器操作说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E.zip', desc: '官方原版安装器 英文版操作说明', time: '2026-10-02' },
+      { name: 'B4IT安装器操作说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%AE%89%E8%A3%85%E5%99%A8%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E.zip', desc: '英文版安装器操作说明', time: '2026-10-02' },
       { name: 'B4IT功能说明', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/B4IT/B4IT%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E.jpg', desc: '插件页面及快捷键说明', time: '2026-10-02' },
     ]
   },
