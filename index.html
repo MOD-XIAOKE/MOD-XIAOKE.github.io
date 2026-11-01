@@ -332,7 +332,7 @@
     var input = card.querySelector('.lock-input');
     var s = findSection(card.dataset.id);
     if(!s || !input) return;
-    if(input.value === PASSWORD){
+    if(input.value === (s.password || PASSWORD)){
       sessionStorage.setItem('unlocked_' + s.id, '1');
       card.querySelector('.mod-body').innerHTML = modBodyHTML(s);
       showToast('已解锁');
