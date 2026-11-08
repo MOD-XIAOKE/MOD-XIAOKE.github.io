@@ -3,1006 +3,403 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title></title>
+<meta name="description" content="WOT辅助中心">
+<title>WOT辅助中心</title>
 <link rel="icon" type="image/png" href="assets/header-logo.png">
 <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap">
 <style>
-  html,body{margin:0;padding:0;height:100%}
+  :root{
+    --bg:#f5f6f8; --card:#ffffff;
+    --line:#e7eaef; --line2:#d8dde4;
+    --txt:#20242a; --muted:#6b7280; --dim:#9aa1ab;
+    --serif:'Noto Serif SC','Songti SC','SimSun',serif;
+    --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
   body{
-    background:linear-gradient(180deg,#f8f9fb 0%,#e9edf3 100%);
+    font-family:var(--sans); font-size:14.5px; line-height:1.7;
+    color:var(--txt); margin:0;
+    background:linear-gradient(180deg, #f8f9fb 0%, #e9edf3 100%);
     background-attachment:fixed;
-    font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-    color:#20242a;
   }
-  #stage{position:relative;width:100%}
-  #cv{display:block;width:100%;background:transparent}
-  #hd{position:fixed;left:0;top:0;width:100%;z-index:20;
-      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);}
-  #hc{display:block;width:100%;background:transparent}
-  .lk{
-    position:absolute;display:none;box-sizing:border-box;margin:0;
-    border:0;outline:0;background:transparent;
-    font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
-    font-size:16px;color:#20242a;text-align:left;padding:0 14px;
-    caret-color:#20242a;
-    -webkit-appearance:none;appearance:none;
+  ::selection{background:rgba(232,89,12,.16)}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
+  a{color:inherit; text-decoration:none}
+
+  /* ===== 顶栏 ===== */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
   }
-  #kf{
-    position:fixed;right:22px;bottom:22px;z-index:40;display:block;
-    width:50px;height:50px;border-radius:50%;overflow:hidden;
-    border:2px solid #fff;box-shadow:0 6px 18px rgba(0,0,0,.16);
-    transition:transform .15s ease;background:transparent;
+  .topbar .wrap{height:58px; display:flex; align-items:center}
+  .brand{display:flex; align-items:center; gap:10px}
+  .brand-name{
+    font-family:var(--serif); font-weight:900;
+    font-size:18px; letter-spacing:.03em; color:var(--txt);
+    white-space:nowrap;
   }
-  #kf img{width:100%;height:100%;object-fit:cover;display:block}
-  #kf:hover{transform:scale(1.07)}
-  #ts{position:fixed;left:50%;bottom:34px;z-index:60;transform:translate(-50%,12px);
-      opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
-  #ts.on{opacity:1;transform:translate(-50%,0)}
-  #tc{display:block}
-  #ld{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:30;display:flex;gap:8px}
-  #ld i{width:9px;height:9px;border-radius:50%;background:#c2c9d3;display:block;animation:bd .9s ease-in-out infinite}
-  #ld i:nth-child(2){animation-delay:.15s}
-  #ld i:nth-child(3){animation-delay:.3s}
-  @keyframes bd{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-5px)}}
+  .brand-logo{
+    width:34px; height:34px; border-radius:9px; object-fit:cover;
+    box-shadow:0 2px 6px rgba(22,26,32,.18); display:block;
+  }
+  .tb-btn{
+    margin-left:auto; display:inline-flex; align-items:center;
+    background:linear-gradient(135deg,#f06514,#e8590c);
+    color:#fff; font-size:13px; font-weight:700;
+    min-height:34px; padding:4px 14px; border-radius:999px;
+    box-shadow:0 2px 8px rgba(232,89,12,.26);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .tb-btn:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(232,89,12,.34)}
+  .tb-btn:active{transform:translateY(0)}
+  .tb-btn:focus-visible{outline:2px solid #e8590c; outline-offset:2px}
+
+  /* ===== Hero ===== */
+  .hero{padding:46px 0 28px; text-align:center}
+  .hero h1{
+    font-family:var(--serif); font-weight:900;
+    font-size:clamp(2.1rem, 5.8vw, 3.2rem);
+    line-height:1.2; letter-spacing:.04em; color:var(--txt);
+  }
+  .hero .bar{
+    width:54px; height:3px; border-radius:99px;
+    background:linear-gradient(90deg,#e8590c,#f5a623);
+    margin:16px auto 0;
+  }
+  .hero .sub{
+    margin:14px auto 0; max-width:500px;
+    color:var(--muted); font-size:14.5px;
+  }
+
+  /* ===== 可折叠分区 ===== */
+  .mods{padding:8px 0 52px}
+  .mod-card{
+    background:var(--card); border:2px solid var(--sc, var(--line2));
+    border-radius:14px; margin-bottom:20px; overflow:hidden;
+    box-shadow:0 1px 3px rgba(22,26,32,.05);
+    transition:box-shadow .2s ease;
+  }
+  .mod-card[open]{box-shadow:0 10px 26px rgba(22,26,32,.08)}
+  .mod-head{
+    list-style:none; cursor:pointer; user-select:none;
+    display:flex; align-items:center; gap:12px;
+    padding:22px 20px;
+    transition:background .18s ease;
+  }
+  .mod-head::-webkit-details-marker{display:none}
+  .mod-head:hover{background:#fafbfd}
+  .mod-title{
+    font-family:var(--serif); font-weight:700;
+    font-size:17px; letter-spacing:.02em; color:var(--sc, var(--txt));
+  }
+  .chev{
+    margin-left:auto; width:16px; height:16px; color:var(--dim); flex:none;
+    transition:transform .25s ease;
+  }
+  .mod-card[open] .chev{transform:rotate(180deg)}
+  .mod-body{padding:2px 18px 16px}
+  .mod-card[open] .mod-body{border-top:1px dashed var(--line2); padding-top:12px; margin-top:2px}
+
+  .mod-desc{font-size:14px; color:var(--muted)}
+
+  /* ===== 文件列表 ===== */
+  .files{margin-top:12px}
+  .file-row{
+    display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;
+    padding:11px 2px;
+  }
+  .file-row + .file-row{border-top:1px solid var(--line)}
+  .f-name{font-size:14.5px; font-weight:600; color:var(--txt); word-break:break-all}
+  .f-desc{font-size:12.5px; color:var(--muted); margin-top:2px; word-break:break-all}
+  .f-meta{display:flex; align-items:center; gap:14px}
+  .f-time{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:12.5px; color:var(--dim); white-space:nowrap;
+  }
+  .f-time svg{width:13px; height:13px; flex:none}
+  .btn-dl{
+    display:inline-flex; align-items:center; gap:4px;
+    min-height:28px; padding:4px 10px; border-radius:999px;
+    background:#6b46e5; color:#fff;
+    font-weight:700; font-size:12px; user-select:none;
+    box-shadow:0 1px 4px rgba(107,70,229,.28);
+    transition:transform .14s ease, box-shadow .14s ease, filter .14s ease;
+  }
+  .btn-dl svg{width:11px; height:11px}
+  .btn-dl:hover{filter:brightness(1.08); transform:translateY(-1px); box-shadow:0 4px 12px rgba(107,70,229,.34)}
+  .btn-dl:active{transform:translateY(0)}
+  .btn-dl:focus-visible, .lock-btn:focus-visible, .lock-input:focus-visible{outline:2px solid #6b46e5; outline-offset:2px}
+
+  /* ===== 密码锁定面板 ===== */
+  .lock-box{padding:12px 4px 6px; text-align:center}
+  .lock-form{display:flex; gap:8px; justify-content:center}
+  .lock-input{
+    width:200px; height:40px; padding:0 14px;
+    border:1px solid var(--line2); border-radius:999px;
+    font-size:16px; font-family:var(--sans); color:var(--txt); background:#fff; outline:none;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .lock-input:focus{border-color:var(--sc, #e8590c); box-shadow:0 0 0 3px rgba(232,89,12,.1)}
+  .lock-input.err{border-color:#d83a3a}
+  .lock-btn{
+    height:36px; padding:0 16px; border:none; border-radius:999px;
+    background:#e8590c; color:#fff;
+    font-family:var(--sans); font-weight:700; font-size:13px; cursor:pointer;
+    box-shadow:0 2px 6px rgba(232,89,12,.22);
+    transition:filter .14s ease, transform .14s ease;
+  }
+  .lock-btn:hover{filter:brightness(1.08); transform:translateY(-1px)}
+
+  /* ===== 客服悬浮按钮 ===== */
+  .kefu{
+    position:fixed; right:22px; bottom:22px; z-index:40;
+    width:50px; height:50px; border-radius:50%; overflow:hidden;
+    border:2px solid #fff; box-shadow:0 6px 18px rgba(0,0,0,.16);
+    transition:transform .15s ease;
+  }
+  .kefu:hover{transform:scale(1.07)}
+  .kefu img{width:100%; height:100%; object-fit:cover; display:block}
+
+  /* ===== 页脚（标准网页格式） ===== */
+  footer{padding:26px 0 40px; text-align:center}
+  footer p{font-size:13px; color:var(--muted); font-weight:400}
+  footer .dot{margin:0 8px; color:var(--dim)}
+
+  /* ===== Toast ===== */
+  .toast{
+    position:fixed; left:50%; bottom:34px; z-index:60;
+    transform:translate(-50%, 12px);
+    background:#242a33; color:#fff; font-size:13px;
+    padding:10px 18px; border-radius:10px;
+    box-shadow:0 10px 26px rgba(0,0,0,.22);
+    opacity:0; pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;
+    max-width:80vw;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0)}
+
+  /* ===== 入场动效 ===== */
+  @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  .hero h1{animation:rise .5s ease both}
+  .hero .bar{animation:rise .5s ease .06s both}
+  .hero .sub{animation:rise .5s ease .12s both}
+  .mod-card{animation:rise .4s ease both}
+  .mod-card:nth-child(1){animation-delay:.04s}
+  .mod-card:nth-child(2){animation-delay:.08s}
+  .mod-card:nth-child(3){animation-delay:.12s}
+  .mod-card:nth-child(4){animation-delay:.16s}
+
+  /* ===== 响应式 ===== */
   @media (max-width:680px){
-    #kf{width:46px;height:46px;right:16px;bottom:16px}
+    .topbar .wrap{height:52px}
+    .brand-logo{width:30px; height:30px; border-radius:8px}
+    .hero{padding:34px 0 22px}
+    .mod-head{padding:18px 15px}
+    .mod-body{padding:2px 15px 14px}
+    .mod-title{font-size:16px}
+    .file-row{gap:10px}
+    .f-time{font-size:12px}
+    .btn-dl{padding:4px 10px}
+    .lock-input{width:150px}
+    .kefu{width:46px; height:46px; right:16px; bottom:16px}
   }
-  @media (prefers-reduced-motion:reduce){
-    #ld i{animation:none}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important}
   }
 </style>
 </head>
 <body>
 
-<div id="stage">
-  <canvas id="cv"></canvas>
-</div>
+<!-- ===== 顶栏：左侧标题 + 右上角淘宝店铺按钮 ===== -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <img class="brand-logo" src="assets/header-logo.png" alt="WOT辅助中心" width="34" height="34">
+      <span class="brand-name">WOT辅助中心</span>
+    </div>
+    <a class="tb-btn" id="tb-btn" href="#" target="_blank" rel="noopener noreferrer">
+      <span id="tb-text">小可的淘宝店铺</span>
+    </a>
+  </div>
+</header>
 
-<div id="hd"><canvas id="hc"></canvas></div>
+<main id="top" class="wrap">
 
-<a id="kf" href="#" target="_blank" rel="noopener noreferrer"><img src="assets/kefu-icon.png" alt=""></a>
+  <!-- ===== 页面标题 ===== -->
+  <section class="hero">
+    <h1>文件下载站</h1>
+  </section>
 
-<div id="ts"><canvas id="tc"></canvas></div>
+  <!-- ===== 分区列表（由下方脚本按“配置区”数据自动生成，默认全部收起） ===== -->
+  <section class="mods" id="mods" aria-label="工具分区"></section>
 
-<div id="ld"><i></i><i></i><i></i></div>
+</main>
 
-<script src="data.js"></script>
+<!-- ===== 页脚：作者信息 ===== -->
+<footer class="wrap">
+  <p class="author"><span>© 2026 WOT辅助中心</span><span class="dot">·</span><span id="footer-author"></span><span class="dot">·</span><span id="footer-qq"></span></p>
+</footer>
+
+<!-- ===== 右下角客服图标 ===== -->
+<a class="kefu" id="kefu" href="#" target="_blank" rel="noopener noreferrer" aria-label="在线客服">
+  <img src="assets/kefu-icon.png" alt="在线客服" width="50" height="50">
+</a>
+
+<!-- ===== Toast 提示 ===== -->
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
 <script>
-(function () {
-  'use strict';
+/* ================================================================
+ *  页面配置已分离到同目录 config.js（下载链接 / 名称 / 说明 / 更新时间 / 分区）
+ *  日常维护只改 config.js，本页面无需再修改。
+ * ================================================================ */
 
-  var DPR = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
-  var SANS = '"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif';
-  var SERIF = '"Noto Serif SC","Songti SC","SimSun",serif';
-  var COL = {
-    txt: '#20242a', muted: '#6b7280', dim: '#9aa1ab',
-    line: '#e7eaef', line2: '#d8dde4',
-    orange: '#e8590c', purple: '#6b46e5'
-  };
-  var GLOBAL_PASS = 'wotxk-2026-global';
-  var BT = 2;
-
-  var stage = document.getElementById('stage');
-  var cv = document.getElementById('cv');
-  var ctx = cv.getContext('2d');
-  var hc = document.getElementById('hc');
-  var hctx = hc.getContext('2d');
-  var tcn = document.getElementById('tc');
-  var tctx = tcn.getContext('2d');
-  var tsBox = document.getElementById('ts');
-  var kf = document.getElementById('kf');
-  var ld = document.getElementById('ld');
-
-  var mc = document.createElement('canvas').getContext('2d');
-
-  var logoImg = new Image(); logoImg.src = 'assets/header-logo.png';
-
-  var meta = {
-    brand: '', hero: '', copy: '', tbText: '', tbUrl: '#', kefuUrl: '#',
-    author: '', qq: '',
-    ui: { ph: '', unlock: '', dl: '', upd: '', ok: '', bad: '', offline: '' }
-  };
-  var booted = false;
-  var SEC = [];
-  var OPEN = {};
-  var HOVER = { head: -1, dl: '', lbtn: -1, tb: false };
-  var FOCUS = {};
-  var LAY = { vw: 0, cw: 0, cx: 0, heroY: 0, heroFont: '', cards: [], footY: 0, H: 0 };
-  var HEADER_H = 58;
-  var inputs = {};
+/* ================================================================
+ *  以下为页面渲染与交互代码（一般无需修改）
+ * ================================================================ */
+(function(){
+  if(!window.SECTIONS) window.SECTIONS = [];
+  window.TAOBAO_TEXT = window.TAOBAO_TEXT || '小可的淘宝店铺';
+  window.TAOBAO_URL  = window.TAOBAO_URL  || '#';
+  window.KEFU_URL    = window.KEFU_URL    || '#';
+  window.AUTHOR_TEXT = window.AUTHOR_TEXT || '作者：SIMP 中国区经销商（小可）';
+  window.AUTHOR_QQ   = window.AUTHOR_QQ   || 'QQ：3637487607';
+  var toast = document.getElementById('toast');
   var toastTimer = null;
-  var toastMsg = '';
-
-  function F(w, s, serif) { return w + ' ' + s + 'px ' + (serif ? SERIF : SANS); }
-  function meas(t, font) { mc.font = font; return mc.measureText(t).width; }
-  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
-
-  function rr(c, x, y, w, h, r) {
-    if (r > h / 2) r = h / 2;
-    if (r > w / 2) r = w / 2;
-    c.beginPath();
-    c.moveTo(x + r, y);
-    c.arcTo(x + w, y, x + w, y + h, r);
-    c.arcTo(x + w, y + h, x, y + h, r);
-    c.arcTo(x, y + h, x, y, r);
-    c.arcTo(x, y, x + w, y, r);
-    c.closePath();
-  }
-
-  function wrapChar(text, maxW, font) {
-    mc.font = font;
-    text = String(text);
-    var lines = [], cur = '', i;
-    for (i = 0; i < text.length; i++) {
-      var ch = text.charAt(i);
-      if (ch === '\n') { lines.push(cur); cur = ''; continue; }
-      if (mc.measureText(cur + ch).width > maxW && cur !== '') { lines.push(cur); cur = ch; }
-      else cur += ch;
-    }
-    if (cur !== '') lines.push(cur);
-    return lines.length ? lines : [''];
-  }
-
-  function tok(s) {
-    s = String(s);
-    var out = [], buf = '', i, ch;
-    for (i = 0; i < s.length; i++) {
-      ch = s.charAt(i);
-      if (ch === '\n') { if (buf) { out.push(buf); buf = ''; } out.push('\n'); continue; }
-      if (ch === ' ' || ch === '\t' || ch === '\u00a0') { if (buf) { out.push(buf); buf = ''; } out.push(' '); continue; }
-      if (ch.charCodeAt(0) < 128) { buf += ch; }
-      else { if (buf) { out.push(buf); buf = ''; } out.push(ch); }
-    }
-    if (buf) out.push(buf);
-    return out;
-  }
-
-  function wrapText(text, maxW, font) {
-    mc.font = font;
-    if (maxW <= 12) return [String(text)];
-    var lines = [], cur = '', toks = tok(text), i;
-    for (i = 0; i < toks.length; i++) {
-      var t = toks[i];
-      if (t === '\n') { lines.push(cur); cur = ''; continue; }
-      if (mc.measureText(cur + t).width <= maxW) { cur += t; continue; }
-      if (cur === '') {
-        var chunk = '', j;
-        for (j = 0; j < t.length; j++) {
-          if (mc.measureText(chunk + t.charAt(j)).width > maxW && chunk !== '') { lines.push(chunk); chunk = t.charAt(j); }
-          else chunk += t.charAt(j);
-        }
-        cur = chunk;
-        continue;
-      }
-      if (t === ' ') { lines.push(cur); cur = ''; continue; }
-      lines.push(cur);
-      cur = t;
-      if (mc.measureText(cur).width > maxW) {
-        var ch2 = '', k;
-        for (k = 0; k < cur.length; k++) {
-          if (mc.measureText(ch2 + cur.charAt(k)).width > maxW && ch2 !== '') { lines.push(ch2); ch2 = cur.charAt(k); }
-          else ch2 += cur.charAt(k);
-        }
-        cur = ch2;
-      }
-    }
-    if (cur !== '') lines.push(cur);
-    return lines.length ? lines : [''];
-  }
-
-  function b64d(s) {
-    var bin = atob(s), n = bin.length, out = new Uint8Array(n), i;
-    for (i = 0; i < n; i++) out[i] = bin.charCodeAt(i);
-    return out;
-  }
-  function u8(s) { return new TextEncoder().encode(s); }
-
-  function derive(pass, salt, iter) {
-    return crypto.subtle.importKey('raw', u8(pass), 'PBKDF2', false, ['deriveKey']).then(function (km) {
-      return crypto.subtle.deriveKey(
-        { name: 'PBKDF2', salt: salt, iterations: iter, hash: 'SHA-256' },
-        km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
-      );
-    });
-  }
-
-  function decrypt(key, blob) {
-    var b = b64d(blob);
-    var iv = b.slice(0, 12);
-    var ct = b.slice(12);
-    return crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv }, key, ct);
-  }
-
-  function toObj(buf) { return JSON.parse(new TextDecoder().decode(new Uint8Array(buf))); }
-
-  function calc() {
-    var vw = document.documentElement.clientWidth;
-    var mob = vw <= 680;
-    HEADER_H = mob ? 52 : 58;
-
-    var wrapW = Math.min(1000, vw);
-    var padX = 20;
-    var cx = (vw - wrapW) / 2 + padX;
-    var cw = wrapW - padX * 2;
-
-    LAY.vw = vw; LAY.cx = cx; LAY.cw = cw;
-
-    var y = HEADER_H + (mob ? 34 : 46);
-
-    var h1 = clamp(vw * 0.058, 33.6, 51.2);
-    LAY.heroFont = F(900, h1, true);
-    LAY.heroY = y;
-    y += Math.round(h1 * 1.2);
-    y += 16 + 3;
-    y += 28;
-    y += 8;
-
-    LAY.cards = [];
-    var i;
-    for (i = 0; i < SEC.length; i++) {
-      var card = cardCalc(i, vw, cw, mob);
-      card.y = y;
-      y += card.h + 20;
-      LAY.cards.push(card);
-    }
-
-    y = y - 20 + 26;
-    LAY.footY = y;
-    y += 13 * 1.7 + 40;
-    LAY.H = y;
-
-    return LAY;
-  }
-
-  function cardCalc(i, vw, cw, mob) {
-    var s = SEC[i];
-    var padTB = mob ? 18 : 22;
-    var padX = mob ? 15 : 20;
-    var ts = mob ? 16 : 17;
-    var titleFont = F(700, ts, true);
-    var titleLH = ts * 1.7;
-    var headH = padTB * 2 + titleLH;
-
-    var o = {
-      s: s, s_i: i, h: headH + BT * 2, open: !!OPEN[s.id],
-      headH: headH, padTB: padTB, padX: padX,
-      titleFont: titleFont, titleLH: titleLH
-    };
-    if (!o.open) return o;
-    if (!s.body) { return lockCalc(o, cw, padX, mob); }
-    return bodyCalc(o, cw, padX, mob);
-  }
-
-  function lockCalc(o, cw, padX, mob) {
-    var innerW = cw - BT * 2 - padX * 2;
-    var inpH = 40, inpW = mob ? 150 : 200;
-    var btnFont = F(700, 13);
-    var btnW = meas(meta.ui.unlock, btnFont) + 32;
-    var btnH = 36;
-    var gap = 8;
-    var formW = inpW + gap + btnW;
-    var formX = padX + (innerW - formW) / 2;
-    var padTop = 12, padBot = 6;
-
-    o.lock = {
-      inpW: inpW, inpH: inpH,
-      inpX: BT + formX, inpY: o.headH + 2 + 12 + padTop,
-      btnX: BT + formX + inpW + gap,
-      btnY: o.headH + 2 + 12 + padTop + (inpH - btnH) / 2,
-      btnW: btnW, btnH: btnH, btnFont: btnFont
-    };
-    o.bodyTop = o.headH + 2;
-    o.h = o.headH + 2 + 12 + (padTop + inpH + padBot) + (mob ? 14 : 16) + BT * 2;
-    return o;
-  }
-
-  function bodyCalc(o, cw, padX, mob) {
-    var innerW = cw - BT * 2 - padX * 2;
-    var descFont = F(400, 14);
-    var descLH = 14 * 1.7;
-    var nameFont = F(600, 14.5);
-    var nameLH = 14.5 * 1.7;
-    var sdFont = F(400, 12.5);
-    var sdLH = 12.5 * 1.7;
-    var timeFont = F(400, 12.5);
-    var btnFont = F(700, 12);
-    var gapR = mob ? 10 : 14;
-
-    var desc = s_desc(o.s);
-    var descLines = desc ? wrapText(desc, innerW, descFont) : [];
-
-    var contentTop = o.headH + 2 + 12;
-    var filesTop = contentTop + (descLines.length ? descLines.length * descLH : 0) + (descLines.length ? 12 : 0);
-
-    var rows = [];
-    var y = filesTop;
-    var list = (o.s.body.files || []);
-    var stackTime = innerW < 420;
-    var j;
-
-    for (j = 0; j < list.length; j++) {
-      var f = list[j];
-      var btnW = 20 + 11 + 4 + meas(meta.ui.dl, btnFont);
-      var btnH = 28;
-      var timeText = f.time ? (meta.ui.upd + ' ' + f.time) : '';
-      var timeW = timeText ? 13 + 5 + meas(timeText, timeFont) : 0;
-      var rightW = (stackTime || !timeText) ? btnW : (timeW + gapR + btnW);
-      var leftW = Math.max(60, innerW - rightW - gapR);
-
-      var nameLines = wrapChar(f.name || '', leftW, nameFont);
-      var dLines = f.desc ? wrapChar(f.desc, leftW, sdFont) : [];
-      var leftH = nameLines.length * nameLH + (dLines.length ? 2 + dLines.length * sdLH : 0);
-      if (stackTime && timeText) leftH += 4 + sdLH;
-
-      var innerH = Math.max(leftH, btnH);
-      var rowH = innerH + 22;
-      rows.push({
-        y: y, h: rowH, f: f, nameLines: nameLines, dLines: dLines,
-        btnX: innerW - btnW, btnY: (rowH - btnH) / 2, btnW: btnW, btnH: btnH,
-        nameLH: nameLH, sdLH: sdLH, timeText: timeText, timeW: timeW,
-        stackTime: stackTime, leftW: leftW, innerH: innerH
-      });
-      y += rowH;
-    }
-
-    o.descY = contentTop;
-    o.descLines = descLines;
-    o.descFont = descFont;
-    o.descLH = descLH;
-    o.filesTop = filesTop;
-    o.rows = rows;
-    o.rowFonts = { name: nameFont, sd: sdFont, time: timeFont, btn: btnFont };
-    o.h = (rows.length ? y : filesTop) + 16 + BT * 2;
-    o.bodyTop = o.headH + 2;
-    return o;
-  }
-
-  function s_desc(s) { return (s.body && s.body.desc) ? s.body.desc : ''; }
-
-  function paint() {
-    var W = LAY.vw, H = LAY.H;
-    var pxW = Math.max(1, Math.round(W * DPR));
-    var pxH = Math.max(1, Math.round(H * DPR));
-    if (cv.width !== pxW || cv.height !== pxH) {
-      cv.width = pxW;
-      cv.height = pxH;
-      cv.style.width = W + 'px';
-      cv.style.height = H + 'px';
-    }
-
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-
-    paintHero();
-    var i;
-    for (i = 0; i < LAY.cards.length; i++) paintCard(i);
-    paintFooter();
-    syncInputs();
-  }
-
-  function paintHero() {
-    if (!booted) return;
-    var W = LAY.vw;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = COL.txt;
-    ctx.font = LAY.heroFont;
-    wrapChar(meta.hero, W - 40, LAY.heroFont).forEach(function (ln, k) {
-      ctx.fillText(ln, W / 2, LAY.heroY + k * (parseFloat(LAY.heroFont.match(/(\d+(?:\.\d+)?)px/)[1]) * 1.2));
-    });
-
-    var h1s = parseFloat(LAY.heroFont.match(/(\d+(?:\.\d+)?)px/)[1]);
-    var barY = LAY.heroY + Math.round(h1s * 1.2) + 16;
-    var g = ctx.createLinearGradient(W / 2 - 27, 0, W / 2 + 27, 0);
-    g.addColorStop(0, COL.orange);
-    g.addColorStop(1, '#f5a623');
-    ctx.fillStyle = g;
-    rr(ctx, W / 2 - 27, barY, 54, 3, 2);
-    ctx.fill();
-  }
-
-  function paintCard(i) {
-    var c = LAY.cards[i];
-    var x = LAY.cx, w = LAY.cw, y = c.y, h = c.h;
-    var s = c.s;
-
-    ctx.save();
-    ctx.shadowColor = 'rgba(22,26,32,' + (c.open ? '.08' : '.05') + ')';
-    ctx.shadowBlur = c.open ? 26 : 3;
-    ctx.shadowOffsetY = c.open ? 10 : 1;
-    ctx.fillStyle = '#fff';
-    rr(ctx, x, y, w, h, 14);
-    ctx.fill();
-    ctx.restore();
-
-    ctx.save();
-    ctx.strokeStyle = s.c;
-    ctx.lineWidth = BT;
-    rr(ctx, x + BT / 2, y + BT / 2, w - BT, h - BT, 13);
-    ctx.stroke();
-    ctx.restore();
-
-    if (HOVER.head === i) {
-      ctx.save();
-      rr(ctx, x + BT, y + BT, w - BT * 2, c.headH, 12);
-      ctx.fillStyle = '#fafbfd';
-      ctx.fill();
-      ctx.restore();
-    }
-
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = s.c;
-    ctx.font = c.titleFont;
-    ctx.fillText(s.t, x + BT + c.padX, y + BT + c.padTB + 1);
-
-    var chSize = 16;
-    var chX = x + w - BT - c.padX - chSize;
-    var chY = y + BT + c.headH / 2 - chSize / 2;
-    chevron(chX, chY, chSize, c.open);
-
-    if (!c.open) return;
-
-    ctx.strokeStyle = COL.line2;
-    ctx.lineWidth = 1;
-    ctx.setLineDash([4, 3]);
-    ctx.beginPath();
-    ctx.moveTo(x + BT, y + BT + c.bodyTop + 0.5);
-    ctx.lineTo(x + w - BT, y + BT + c.bodyTop + 0.5);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    if (c.lock) { paintLock(c, i); return; }
-
-    if (c.descLines.length) {
-      ctx.fillStyle = COL.muted;
-      ctx.font = c.descFont;
-      c.descLines.forEach(function (ln, k) {
-        ctx.fillText(ln, x + BT + c.padX, y + BT + c.descY + k * c.descLH);
-      });
-    }
-
-    var ri;
-    for (ri = 0; ri < c.rows.length; ri++) paintRow(c, i, ri);
-  }
-
-  function paintLock(c, i) {
-    var L = c.lock;
-    var x = LAY.cx, y = c.y;
-
-    ctx.save();
-    ctx.fillStyle = '#fff';
-    rr(ctx, x + L.inpX, y + L.inpY, L.inpW, L.inpH, L.inpH / 2);
-    ctx.fill();
-    ctx.strokeStyle = FOCUS[c.s.id] ? c.s.c : COL.line2;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.restore();
-
-    var el = inputs[c.s.id];
-    if (!el || el.value === '') {
-      ctx.fillStyle = '#9aa1ab';
-      ctx.font = F(400, 16);
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(meta.ui.ph, x + L.inpX + 15, y + L.inpY + L.inpH / 2);
-    }
-
-    ctx.save();
-    var gx = x + L.btnX, gy = y + L.btnY;
-    ctx.fillStyle = COL.orange;
-    if (HOVER.lbtn === i) { ctx.shadowColor = 'rgba(232,89,12,.3)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 2; }
-    rr(ctx, gx, gy, L.btnW, L.btnH, L.btnH / 2);
-    ctx.fill();
-    ctx.restore();
-
-    ctx.fillStyle = '#fff';
-    ctx.font = L.btnFont;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(meta.ui.unlock, gx + L.btnW / 2, gy + L.btnH / 2 + 0.5);
-  }
-
-  function paintRow(c, ci, ri) {
-    var r = c.rows[ri];
-    var x = LAY.cx + BT + c.padX;
-    var y = c.y + BT + r.y;
-
-    if (ri > 0) {
-      ctx.fillStyle = COL.line;
-      ctx.fillRect(x, y, c.cw - BT * 2 - c.padX * 2, 1);
-    }
-
-    var ty = y + 11;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-
-    ctx.fillStyle = COL.txt;
-    ctx.font = c.rowFonts.name;
-    r.nameLines.forEach(function (ln, k) {
-      ctx.fillText(ln, x, ty + k * r.nameLH);
-    });
-    var curY = ty + r.nameLines.length * r.nameLH;
-
-    if (r.dLines.length) {
-      ctx.fillStyle = COL.muted;
-      ctx.font = c.rowFonts.sd;
-      r.dLines.forEach(function (ln, k) {
-        ctx.fillText(ln, x, curY + 2 + k * r.sdLH);
-      });
-      curY += 2 + r.dLines.length * r.sdLH;
-    }
-
-    if (r.stackTime && r.timeText) {
-      paintTime(x, curY + 4, r, c.rowFonts.time);
-    }
-
-    var bx = LAY.cx + BT + c.padX + r.btnX;
-    var by = y + r.btnY;
-    var key = ci + ':' + ri;
-    paintDownloadBtn(bx, by, r.btnW, r.btnH, c.rowFonts.btn, HOVER.dl === key);
-
-    if (!r.stackTime && r.timeText) {
-      var tx = bx - 14 - r.timeW;
-      paintTime(tx, by + r.btnH / 2 - 10.6, r, c.rowFonts.time);
-    }
-  }
-
-  function paintTime(x, y, r, font) {
-    ctx.save();
-    ctx.strokeStyle = COL.dim;
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.arc(x + 6.5, y + 6.5, 5.6, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x + 6.5, y + 3.4);
-    ctx.lineTo(x + 6.5, y + 6.6);
-    ctx.lineTo(x + 8.8, y + 7.9);
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.fillStyle = COL.dim;
-    ctx.font = font;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillText(r.timeText, x + 18, y + 0.5);
-  }
-
-  function paintDownloadBtn(x, y, w, h, font, hot) {
-    ctx.save();
-    if (hot) {
-      ctx.fillStyle = '#7b5bea';
-      ctx.shadowColor = 'rgba(107,70,229,.34)';
-      ctx.shadowBlur = 12;
-      ctx.shadowOffsetY = 3;
-      y -= 1;
-    } else {
-      ctx.fillStyle = COL.purple;
-      ctx.shadowColor = 'rgba(107,70,229,.28)';
-      ctx.shadowBlur = 4;
-      ctx.shadowOffsetY = 1;
-    }
-    rr(ctx, x, y, w, h, h / 2);
-    ctx.fill();
-    ctx.restore();
-
-    var ix = x + 10;
-    var iy = y + (h - 11) / 2;
-    ctx.save();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 1.9;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.beginPath();
-    ctx.moveTo(ix + 4.4, iy + 0.6);
-    ctx.lineTo(ix + 4.4, iy + 7);
-    ctx.moveTo(ix + 1.4, iy + 4.2);
-    ctx.lineTo(ix + 4.4, iy + 7);
-    ctx.lineTo(ix + 7.4, iy + 4.2);
-    ctx.moveTo(ix + 0.2, iy + 9.6);
-    ctx.lineTo(ix + 8.6, iy + 9.6);
-    ctx.stroke();
-    ctx.restore();
-
-    ctx.fillStyle = '#fff';
-    ctx.font = font;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(meta.ui.dl, ix + 11 + 4, y + h / 2 + 0.5);
-  }
-
-  function chevron(x, y, size, open) {
-    ctx.save();
-    ctx.translate(x + size / 2, y + size / 2);
-    if (open) ctx.rotate(Math.PI);
-    ctx.strokeStyle = COL.dim;
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    var half = size * 0.34, vh = size * 0.17;
-    ctx.beginPath();
-    ctx.moveTo(-half, -vh);
-    ctx.lineTo(0, vh);
-    ctx.lineTo(half, -vh);
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  function paintFooter() {
-    if (!booted) return;
-    var W = LAY.vw;
-    var parts = [meta.copy, meta.author, meta.qq];
-    var font = F(400, 13);
-    var sep = '  \u00b7  ';
-    var total = 0;
-    var i;
-    var widths = [];
-    for (i = 0; i < parts.length; i++) {
-      widths.push(meas(parts[i], font));
-      total += widths[i];
-    }
-    total += meas(sep, font) * (parts.length - 1);
-
-    ctx.font = font;
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = COL.muted;
-    var x = (W - total) / 2;
-    for (i = 0; i < parts.length; i++) {
-      ctx.textAlign = 'left';
-      ctx.fillText(parts[i], x, LAY.footY);
-      x += widths[i];
-      if (i < parts.length - 1) {
-        ctx.fillStyle = COL.dim;
-        ctx.fillText(sep, x, LAY.footY);
-        x += meas(sep, font);
-        ctx.fillStyle = COL.muted;
-      }
-    }
-  }
-
-  function paintHeader() {
-    var vw = document.documentElement.clientWidth;
-    var hh = HEADER_H;
-    hc.width = Math.max(1, Math.round(vw * DPR));
-    hc.height = Math.max(1, Math.round(hh * DPR));
-    hc.style.width = vw + 'px';
-    hc.style.height = hh + 'px';
-
-    hctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    hctx.clearRect(0, 0, vw, hh);
-    hctx.fillStyle = 'rgba(255,255,255,0.93)';
-    hctx.fillRect(0, 0, vw, hh);
-    hctx.fillStyle = COL.line;
-    hctx.fillRect(0, hh - 1, vw, 1);
-
-    var wrapW = Math.min(1000, vw);
-    var padX = 20;
-    var leftX = (vw - wrapW) / 2 + padX;
-    var rightX = (vw - wrapW) / 2 + wrapW - padX;
-
-    var mob = vw <= 680;
-    var logo = mob ? 30 : 34;
-    var logoY = (hh - logo) / 2;
-
-    if (logoImg.complete && logoImg.naturalWidth) {
-      hctx.save();
-      rr(hctx, leftX, logoY, logo, logo, mob ? 8 : 9);
-      hctx.clip();
-      hctx.drawImage(logoImg, leftX, logoY, logo, logo);
-      hctx.restore();
-    }
-
-    if (!booted) return;
-
-    hctx.textAlign = 'left';
-    hctx.textBaseline = 'middle';
-    hctx.fillStyle = COL.txt;
-    hctx.font = F(900, 18, true);
-    hctx.fillText(meta.brand, leftX + logo + 10, hh / 2 + 1);
-
-    var bf = F(700, 13);
-    var btw = meas(meta.tbText, bf) + 28;
-    var bth = 34;
-    var bx = rightX - btw;
-    var by = (hh - bth) / 2;
-
-    hctx.save();
-    var g = hctx.createLinearGradient(bx, by, bx + btw, by + bth);
-    g.addColorStop(0, '#f06514');
-    g.addColorStop(1, '#e8590c');
-    hctx.fillStyle = g;
-    if (HOVER.tb) { hctx.shadowColor = 'rgba(232,89,12,.34)'; hctx.shadowBlur = 16; hctx.shadowOffsetY = 5; }
-    else { hctx.shadowColor = 'rgba(232,89,12,.26)'; hctx.shadowBlur = 8; hctx.shadowOffsetY = 2; }
-    rr(hctx, bx, by, btw, bth, bth / 2);
-    hctx.fill();
-    hctx.restore();
-
-    hctx.fillStyle = '#fff';
-    hctx.font = bf;
-    hctx.textAlign = 'center';
-    hctx.textBaseline = 'middle';
-    hctx.fillText(meta.tbText, bx + btw / 2, by + bth / 2 + 1);
-
-    LAY.tb = { x: bx, y: by, w: btw, h: bth };
-  }
-
-  function syncInputs() {
-    for (var k in inputs) {
-      if (inputs.hasOwnProperty(k)) inputs[k].style.display = 'none';
-    }
-    var i;
-    for (i = 0; i < LAY.cards.length; i++) {
-      var c = LAY.cards[i];
-      if (!c.open || !c.lock) continue;
-      var el = inputs[c.s.id];
-      if (!el) {
-        el = makeInput(c.s.id);
-      }
-      var L = c.lock;
-      el.style.display = 'block';
-      el.style.left = (LAY.cx + L.inpX + 2) + 'px';
-      el.style.top = (c.y + L.inpY + 2) + 'px';
-      el.style.width = (L.inpW - 4) + 'px';
-      el.style.height = (L.inpH - 4) + 'px';
-      el.style.lineHeight = (L.inpH - 4) + 'px';
-      el.style.borderRadius = ((L.inpH - 4) / 2) + 'px';
-    }
-  }
-
-  function makeInput(id) {
-    var el = document.createElement('input');
-    el.type = 'password';
-    el.autocomplete = 'off';
-    el.setAttribute('spellcheck', 'false');
-    el.className = 'lk';
-    el.addEventListener('input', function () {
-      var c = findCard(id);
-      if (c) paint();
-    });
-    el.addEventListener('focus', function () { FOCUS[id] = true; paint(); });
-    el.addEventListener('blur', function () { FOCUS[id] = false; paint(); });
-    el.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); tryUnlock(id); }
-    });
-    stage.appendChild(el);
-    inputs[id] = el;
-    return el;
-  }
-
-  function findCard(id) {
-    var i;
-    for (i = 0; i < LAY.cards.length; i++) if (LAY.cards[i].s.id === id) return LAY.cards[i];
-    return null;
-  }
-
-  function tryUnlock(id) {
-    var s = null, i;
-    for (i = 0; i < SEC.length; i++) if (SEC[i].id === id) s = SEC[i];
-    if (!s || s.busy) return;
-
-    var el = inputs[id];
-    var pass = el ? el.value : '';
-
-    s.busy = true;
-
-    derive(pass, b64d(s.salt), s.iter || 100000).then(function (k) {
-      return decrypt(k, s.enc);
-    }).then(function (buf) {
-      s.body = toObj(buf);
-      s.busy = false;
-      if (el) { el.value = ''; el.style.display = 'none'; }
-      OPEN[id] = true;
-      toast(meta.ui.ok);
-      rebuild();
-    }).catch(function () {
-      s.busy = false;
-      toast(meta.ui.bad);
-      if (el) { el.value = ''; el.focus(); }
-      paint();
-    });
-  }
-
-  function toast(msg) {
-    toastMsg = msg;
-    var font = F(400, 13);
-    var tw = Math.round(meas(msg, font)) + 36;
-    var th = Math.round(13 * 1.7) + 20;
-
-    tcn.width = Math.round(tw * DPR);
-    tcn.height = Math.round(th * DPR);
-    tcn.style.width = tw + 'px';
-    tcn.style.height = th + 'px';
-
-    tctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    tctx.clearRect(0, 0, tw, th);
-    tctx.fillStyle = '#242a33';
-    rr(tctx, 0, 0, tw, th, 10);
-    tctx.fill();
-    tctx.fillStyle = '#fff';
-    tctx.font = font;
-    tctx.textAlign = 'center';
-    tctx.textBaseline = 'middle';
-    tctx.fillText(msg, tw / 2, th / 2 + 0.5);
-
-    tsBox.classList.add('on');
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { tsBox.classList.remove('on'); }, 2400);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2400);
   }
 
-  function openDownload(url) {
-    var ts = Date.now();
-    var real = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + ts;
-    fetch(real, { method: 'HEAD', cache: 'no-store' }).then(function (res) {
-      if (!res.ok) toast(meta.ui.offline);
-      else window.open(real);
-    }).catch(function () {
-      window.open(real);
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
     });
   }
-
-  function hit(x, y) {
-    var i;
-    for (i = 0; i < LAY.cards.length; i++) {
-      var c = LAY.cards[i];
-      var cx0 = LAY.cx, cw = LAY.cw;
-      if (x < cx0 || x > cx0 + cw) continue;
-      if (y < c.y || y > c.y + c.h) continue;
-
-      if (y <= c.y + BT + c.headH) return { t: 'head', i: i };
-
-      if (c.lock) {
-        var L = c.lock;
-        var ax = cx0 + L.btnX, ay = c.y + L.btnY;
-        if (x >= ax && x <= ax + L.btnW && y >= ay && y <= ay + L.btnH) return { t: 'unlock', i: i };
-        return null;
-      }
-
-      var r;
-      for (r = 0; r < c.rows.length; r++) {
-        var row = c.rows[r];
-        var ry = c.y + BT + row.y;
-        if (y < ry || y > ry + row.h) continue;
-        var bx = cx0 + BT + c.padX + row.btnX;
-        var by = ry + row.btnY;
-        if (x >= bx && x <= bx + row.btnW && y >= by && y <= by + row.btnH) {
-          return { t: 'dl', i: i, r: r };
-        }
-      }
-      return null;
-    }
+  function findSection(id){
+    for(var i=0; i<SECTIONS.length; i++){ if(SECTIONS[i].id === id) return SECTIONS[i]; }
     return null;
   }
 
-  function toCv(e) {
-    var rect = cv.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  /* 生成单个文件行（文件名 + 说明 + 更新时间 + 下载按钮） */
+  function fileRowHTML(f){
+    var desc = f.desc ? '<div class="f-desc">' + esc(f.desc) + '</div>' : '';
+    var time = f.time
+      ? '<span class="f-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>更新时间 ' + esc(f.time) + '</span>'
+      : '';
+    return '<div class="file-row">'
+      + '<div class="f-info"><div class="f-name">' + esc(f.name) + '</div>' + desc + '</div>'
+      + '<div class="f-meta">' + time
+      + '<a class="btn-dl" href="' + esc(f.url) + '" download="' + esc(f.name) + '" aria-label="下载 ' + esc(f.name) + '">'
+      + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>'
+      + '<span>下载</span></a></div></div>';
   }
 
-  cv.addEventListener('click', function (e) {
-    var p = toCv(e);
-    var h = hit(p.x, p.y);
-    if (!h) return;
-    if (h.t === 'head') { OPEN[LAY.cards[h.i].s.id] = !LAY.cards[h.i].open; rebuild(); }
-    else if (h.t === 'unlock') { tryUnlock(LAY.cards[h.i].s.id); }
-    else if (h.t === 'dl') { openDownload(LAY.cards[h.i].rows[h.r].f.url); }
-  });
-
-  cv.addEventListener('mousemove', function (e) {
-    var p = toCv(e);
-    var h = hit(p.x, p.y);
-    var head = -1, dl = '', lbtn = -1;
-
-    if (h) {
-      if (h.t === 'head') head = h.i;
-      else if (h.t === 'dl') dl = h.i + ':' + h.r;
-      else if (h.t === 'unlock') { head = h.i; lbtn = h.i; }
-    }
-
-    if (head !== HOVER.head || dl !== HOVER.dl || lbtn !== HOVER.lbtn) {
-      HOVER.head = head; HOVER.dl = dl; HOVER.lbtn = lbtn;
-      var i;
-      for (i = 0; i < LAY.cards.length; i++) paintCardSoft(i);
-    }
-  });
-
-  cv.addEventListener('mouseleave', function () {
-    if (HOVER.head !== -1 || HOVER.dl !== '' || HOVER.lbtn !== -1) {
-      HOVER.head = -1; HOVER.dl = ''; HOVER.lbtn = -1;
-      var i;
-      for (i = 0; i < LAY.cards.length; i++) paintCardSoft(i);
-    }
-  });
-
-  function paintCardSoft(i) {
-    var c = LAY.cards[i];
-    ctx.save();
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.clearRect(LAY.cx - 40, c.y - 40, LAY.cw + 80, c.h + 90);
-    ctx.restore();
-    paintHero();
-    if (i > 0) paintCard(i - 1);
-    paintCard(i);
-    if (i < LAY.cards.length - 1) paintCard(i + 1);
-    paintFooter();
+  /* 生成分区展开后的内容（说明 + 文件列表） */
+  function modBodyHTML(s){
+    var files = s.files.map(fileRowHTML).join('');
+    return '<p class="mod-desc">' + esc(s.desc) + '</p>'
+      + '<div class="files">' + files + '</div>';
   }
 
-  hc.addEventListener('click', function (e) {
-    if (!LAY.tb || !booted) return;
-    var rect = hc.getBoundingClientRect();
-    var x = e.clientX - rect.left, y = e.clientY - rect.top;
-    var b = LAY.tb;
-    if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) {
-      window.open(meta.tbUrl, '_blank', 'noopener');
-    }
-  });
-
-  hc.addEventListener('mousemove', function (e) {
-    if (!LAY.tb) return;
-    var rect = hc.getBoundingClientRect();
-    var x = e.clientX - rect.left, y = e.clientY - rect.top;
-    var b = LAY.tb;
-    var on = (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h);
-    if (on !== HOVER.tb) { HOVER.tb = on; paintHeader(); }
-  });
-
-  window.addEventListener('resize', function () {
-    rebuild();
-  });
-
-  function rebuild() {
-    calc();
-    paintHeader();
-    paint();
+  /* 生成密码锁定面板（仅密码输入 + 解锁按钮） */
+  function lockPanelHTML(s){
+    return '<div class="lock-box">'
+      + '<div class="lock-form">'
+      + '<input class="lock-input" type="password" placeholder="请输入密码" aria-label="解锁密码" autocomplete="off">'
+      + '<button class="lock-btn" type="button">解锁</button>'
+      + '</div></div>';
   }
 
-  function start() {
-    if (!window._WD) { ld.style.display = 'none'; return; }
+  /* 生成可折叠分区外壳（标题行 + 内容区，默认收起） */
+  function modCardHTML(s){
+    return '<summary class="mod-head">'
+      + '<span class="mod-title">' + esc(s.title) + '</span>'
+      + '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>'
+      + '</summary>'
+      + '<div class="mod-body"></div>';
+  }
 
-    SEC = window._WD.n.map(function (n) {
-      return {
-        id: n.id, t: n.t, c: n.c, l: n.l,
-        salt: n.s, enc: n.e, iter: n.i, body: null, busy: false
-      };
-    });
+  /* 尝试解锁 */
+  function tryUnlock(card){
+    var input = card.querySelector('.lock-input');
+    var s = findSection(card.dataset.id);
+    if(!s || !input) return;
+    if(input.value === (s.password || PASSWORD)){
+      sessionStorage.setItem('unlocked_' + s.id, '1');
+      card.querySelector('.mod-body').innerHTML = modBodyHTML(s);
+      showToast('已解锁');
+    } else {
+      input.classList.add('err');
+      showToast('密码错误，请重试');
+      setTimeout(function(){ input.classList.remove('err'); }, 650);
+      input.select();
+    }
+  }
 
-    var g = window._WD.g;
-    derive(GLOBAL_PASS, b64d(g.s), g.i || 100000).then(function (k) {
-      return decrypt(k, g.e);
-    }).then(function (buf) {
-      meta = toObj(buf);
-      booted = true;
-      kf.href = meta.kefuUrl;
-      if (meta.brand) document.title = meta.brand;
-      ld.style.display = 'none';
-      rebuild();
-    }).catch(function () {
-      booted = true;
-      ld.style.display = 'none';
-      rebuild();
+  /* 渲染整页 */
+  function render(){
+    var tb = document.getElementById('tb-btn');
+    tb.href = TAOBAO_URL;
+    document.getElementById('tb-text').textContent = TAOBAO_TEXT;
+    document.getElementById('kefu').href = KEFU_URL;
+    document.getElementById('footer-author').textContent = AUTHOR_TEXT;
+    document.getElementById('footer-qq').textContent = AUTHOR_QQ;
+
+    var box = document.getElementById('mods');
+    box.innerHTML = '';
+    SECTIONS.forEach(function(s){
+      var card = document.createElement('details');
+      card.className = 'mod-card';
+      card.dataset.id = s.id;
+      card.style.setProperty('--sc', s.color);
+      card.innerHTML = modCardHTML(s);
+      var unlocked = !s.locked || sessionStorage.getItem('unlocked_' + s.id) === '1';
+      card.querySelector('.mod-body').innerHTML = unlocked ? modBodyHTML(s) : lockPanelHTML(s);
+      box.appendChild(card);
     });
   }
 
-  function boot() {
-    calc();
-    paintHeader();
-    paint();
-
-    var ready = [];
-    if (document.fonts && document.fonts.load) {
-      ready.push(document.fonts.load('900 32px "Noto Serif SC"').catch(function () {}));
-      ready.push(document.fonts.load('400 14px "Noto Sans SC"').catch(function () {}));
-      ready.push(document.fonts.load('700 14px "Noto Sans SC"').catch(function () {}));
+  /* 事件：解锁 + 下载预检（事件委托，动态生成的内容同样生效） */
+document.getElementById('mods').addEventListener('click', function(e){
+    var lockBtn = e.target.closest('.lock-btn');
+    if(lockBtn){ tryUnlock(lockBtn.closest('.mod-card')); return; }
+    var dl = e.target.closest('.btn-dl');
+    if(dl){
+      var baseHref = dl.getAttribute('href');
+      const ts = Date.now();
+      // 拼接时间戳
+      var realHref = `${baseHref}?v=${ts}`;
+      fetch(realHref, { method:'HEAD', cache:'no-store' }).then(function(res){
+        if(!res.ok){ 
+          e.preventDefault(); 
+          showToast('文件尚未上传，请稍后重试'); 
+        }else{
+          // 预检成功，跳转带时间戳的链接
+          window.open(realHref);
+          e.preventDefault();
+        }
+      }).catch(function(){
+        // HEAD预检失败，直接打开带时间戳链接
+        window.open(realHref);
+        e.preventDefault();
+      });
     }
+});
+  document.getElementById('mods').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && e.target.classList && e.target.classList.contains('lock-input')){
+      tryUnlock(e.target.closest('.mod-card'));
+    }
+  });
 
-    Promise.all(ready).then(function () { start(); }).catch(function () { start(); });
-  }
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(boot, 0);
-  else document.addEventListener('DOMContentLoaded', boot);
-
+  render();
 })();
 </script>
 </body>
