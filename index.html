@@ -27,7 +27,6 @@
   .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
   a{color:inherit; text-decoration:none}
 
-  /* ===== 顶栏 ===== */
   .topbar{
     position:sticky; top:0; z-index:20;
     background:rgba(255,255,255,.9);
@@ -58,7 +57,6 @@
   .tb-btn:active{transform:translateY(0)}
   .tb-btn:focus-visible{outline:2px solid #e8590c; outline-offset:2px}
 
-  /* ===== Hero ===== */
   .hero{padding:46px 0 28px; text-align:center}
   .hero h1{
     font-family:var(--serif); font-weight:900;
@@ -75,7 +73,6 @@
     color:var(--muted); font-size:14.5px;
   }
 
-  /* ===== 可折叠分区 ===== */
   .mods{padding:8px 0 52px}
   .mod-card{
     background:var(--card); border:2px solid var(--sc, var(--line2));
@@ -106,7 +103,6 @@
 
   .mod-desc{font-size:14px; color:var(--muted)}
 
-  /* ===== 文件列表 ===== */
   .files{margin-top:12px}
   .file-row{
     display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;
@@ -134,7 +130,6 @@
   .btn-dl:active{transform:translateY(0)}
   .btn-dl:focus-visible, .lock-btn:focus-visible, .lock-input:focus-visible{outline:2px solid #6b46e5; outline-offset:2px}
 
-  /* ===== 密码锁定面板 ===== */
   .lock-box{padding:12px 4px 6px; text-align:center}
   .lock-form{display:flex; gap:8px; justify-content:center}
   .lock-input{
@@ -154,7 +149,6 @@
   }
   .lock-btn:hover{filter:brightness(1.08); transform:translateY(-1px)}
 
-  /* ===== 客服悬浮按钮 ===== */
   .kefu{
     position:fixed; right:22px; bottom:22px; z-index:40;
     width:50px; height:50px; border-radius:50%; overflow:hidden;
@@ -164,12 +158,10 @@
   .kefu:hover{transform:scale(1.07)}
   .kefu img{width:100%; height:100%; object-fit:cover; display:block}
 
-  /* ===== 页脚（标准网页格式） ===== */
   footer{padding:26px 0 40px; text-align:center}
   footer p{font-size:13px; color:var(--muted); font-weight:400}
   footer .dot{margin:0 8px; color:var(--dim)}
 
-  /* ===== Toast ===== */
   .toast{
     position:fixed; left:50%; bottom:34px; z-index:60;
     transform:translate(-50%, 12px);
@@ -182,7 +174,6 @@
   }
   .toast.show{opacity:1; transform:translate(-50%,0)}
 
-  /* ===== 入场动效 ===== */
   @keyframes rise{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
   .hero h1{animation:rise .5s ease both}
   .hero .bar{animation:rise .5s ease .06s both}
@@ -193,7 +184,6 @@
   .mod-card:nth-child(3){animation-delay:.12s}
   .mod-card:nth-child(4){animation-delay:.16s}
 
-  /* ===== 响应式 ===== */
   @media (max-width:680px){
     .topbar .wrap{height:52px}
     .brand-logo{width:30px; height:30px; border-radius:8px}
@@ -214,7 +204,6 @@
 </head>
 <body>
 
-<!-- ===== 顶栏：左侧标题 + 右上角淘宝店铺按钮 ===== -->
 <header class="topbar">
   <div class="wrap">
     <div class="brand">
@@ -229,39 +218,27 @@
 
 <main id="top" class="wrap">
 
-  <!-- ===== 页面标题 ===== -->
   <section class="hero">
     <h1>文件下载站</h1>
   </section>
 
-  <!-- ===== 分区列表（由下方脚本按“配置区”数据自动生成，默认全部收起） ===== -->
   <section class="mods" id="mods" aria-label="工具分区"></section>
 
 </main>
 
-<!-- ===== 页脚：作者信息 ===== -->
 <footer class="wrap">
   <p class="author"><span>© 2026 WOT辅助中心</span><span class="dot">·</span><span id="footer-author"></span><span class="dot">·</span><span id="footer-qq"></span></p>
 </footer>
 
-<!-- ===== 右下角客服图标 ===== -->
 <a class="kefu" id="kefu" href="#" target="_blank" rel="noopener noreferrer" aria-label="在线客服">
   <img src="assets/kefu-icon.png" alt="在线客服" width="50" height="50">
 </a>
 
-<!-- ===== Toast 提示 ===== -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="config.js"></script>
 <script>
-/* ================================================================
- *  页面配置已分离到同目录 config.js（下载链接 / 名称 / 说明 / 更新时间 / 分区）
- *  日常维护只改 config.js，本页面无需再修改。
- * ================================================================ */
 
-/* ================================================================
- *  以下为页面渲染与交互代码（一般无需修改）
- * ================================================================ */
 (function(){
   if(!window.SECTIONS) window.SECTIONS = [];
   window.TAOBAO_TEXT = window.TAOBAO_TEXT || '小可的淘宝店铺';
@@ -288,7 +265,6 @@
     return null;
   }
 
-  /* 生成单个文件行（文件名 + 说明 + 更新时间 + 下载按钮） */
   function fileRowHTML(f){
     var desc = f.desc ? '<div class="f-desc">' + esc(f.desc) + '</div>' : '';
     var time = f.time
@@ -302,14 +278,12 @@
       + '<span>下载</span></a></div></div>';
   }
 
-  /* 生成分区展开后的内容（说明 + 文件列表） */
   function modBodyHTML(s){
     var files = s.files.map(fileRowHTML).join('');
     return '<p class="mod-desc">' + esc(s.desc) + '</p>'
       + '<div class="files">' + files + '</div>';
   }
 
-  /* 生成密码锁定面板（仅密码输入 + 解锁按钮） */
   function lockPanelHTML(s){
     return '<div class="lock-box">'
       + '<div class="lock-form">'
@@ -318,7 +292,6 @@
       + '</div></div>';
   }
 
-  /* 生成可折叠分区外壳（标题行 + 内容区，默认收起） */
   function modCardHTML(s){
     return '<summary class="mod-head">'
       + '<span class="mod-title">' + esc(s.title) + '</span>'
@@ -327,7 +300,6 @@
       + '<div class="mod-body"></div>';
   }
 
-  /* 尝试解锁 */
   function tryUnlock(card){
     var input = card.querySelector('.lock-input');
     var s = findSection(card.dataset.id);
@@ -344,7 +316,6 @@
     }
   }
 
-  /* 渲染整页 */
   function render(){
     var tb = document.getElementById('tb-btn');
     tb.href = TAOBAO_URL;
@@ -367,7 +338,6 @@
     });
   }
 
-  /* 事件：解锁 + 下载预检（事件委托，动态生成的内容同样生效） */
 document.getElementById('mods').addEventListener('click', function(e){
     var lockBtn = e.target.closest('.lock-btn');
     if(lockBtn){ tryUnlock(lockBtn.closest('.mod-card')); return; }
@@ -375,19 +345,16 @@ document.getElementById('mods').addEventListener('click', function(e){
     if(dl){
       var baseHref = dl.getAttribute('href');
       const ts = Date.now();
-      // 拼接时间戳
       var realHref = `${baseHref}?v=${ts}`;
       fetch(realHref, { method:'HEAD', cache:'no-store' }).then(function(res){
         if(!res.ok){ 
           e.preventDefault(); 
           showToast('文件尚未上传，请稍后重试'); 
         }else{
-          // 预检成功，跳转带时间戳的链接
           window.open(realHref);
           e.preventDefault();
         }
       }).catch(function(){
-        // HEAD预检失败，直接打开带时间戳链接
         window.open(realHref);
         e.preventDefault();
       });
