@@ -45,9 +45,9 @@ var SECTIONS = [
     locked: true,
     password: 'RYKJSD',
     files: [
-      { name: 'PFMods_WG安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8%E4%B8%AD%E6%96%87%E7%89%88.zip', desc: '1.3中文版功能说明：一键安装与卸载(无残留)、一键汉化、适配网吧环境、不卡游戏加载界面、界面简单清晰，[小可]特别制作版。', time: '2026-11-09' },
-      { name: 'PFMods_WG安装器英文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8%E8%8B%B1%E6%96%87%E7%89%88.zip', desc: '官方原版安装器。', time: '2026-10-14' },
-      { name: 'PFMods_RU安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-RU%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: '俄罗斯服专用安装器', time: '2026-10-02' },
+      { name: 'PFMods-WG安装器中文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8%E4%B8%AD%E6%96%87%E7%89%88v1.4.zip', desc: '1.4中文版功能说明：一键安装与卸载(无残留)、一键汉化、适配网吧环境、不卡游戏加载界面、界面简单清晰，[小可]特别制作版。', time: '2026-11-11' },
+      { name: 'PFMods-WG安装器英文版', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-WG%E5%AE%89%E8%A3%85%E5%99%A8%E8%8B%B1%E6%96%87%E7%89%88.zip', desc: '官方原版安装器。', time: '2026-10-14' },
+      { name: 'PFMods-RU安装器', url: 'https://1843345044.cdn.123clouddisk.com/1843345044/share/PF/PFMods-RU%E5%AE%89%E8%A3%85%E5%99%A8.zip', desc: '俄罗斯服专用安装器', time: '2026-10-02' },
     ]
   },
   {
